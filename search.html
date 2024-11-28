@@ -1,0 +1,127 @@
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+</head>
+<body>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    font-family:'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background: #262a2f;
+    color:#333;
+}
+.searchbox{
+    width: 600px;
+    background: #fff;
+    margin: 200px auto 0;
+    border-radius: 5px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+input{
+    flex:3;
+    height: 50px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color:#333;
+
+}
+button{
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+button {
+    width: 25px;
+    color: #555;
+    font-size: 15px;
+    cursor: pointer;
+}
+::placeholder{
+    color:#555;
+}
+.result-box ul{
+    border-top: 1px solid #999;
+    padding: 15px 10px;
+
+}
+.result-box li{
+    list-style: none;
+    border-radius: 3px;
+    padding: 15px 10px;
+    cursor: pointer;
+}
+.result-box ul li:hover{
+    background:#e9f3ff ;
+}
+
+    </style>
+    <div class="searchbox">
+        <div class="row">
+            <input type="text" id="input-box" placeholder="Search anything..." autocomplete="off">
+            <button id="search-button">Search</button>
+        </div>
+        <div class="result-box">
+            <!-- Results will populate here dynamically -->
+        </div>
+    </div>
+    <script >
+        let availableKeywords = [
+    'HTML',
+    'CSS',
+    'Easy tutorials',
+    'web design tutorials',
+    'javascript',
+    'where to learn web design',
+    'where to learn coding online',
+    'how to create a website'
+];
+
+const resultsBox = document.querySelector(".result-box");
+const inputBox = document.getElementById("input-box");
+
+// Event listener for `keyup` on the input box
+inputBox.addEventListener("keyup", function () {
+    let result = [];
+    let input = inputBox.value.trim(); // Trim spaces to avoid unnecessary matches
+    if (input.length) {
+        // Filter keywords based on input text (case insensitive)
+        result = availableKeywords.filter((keyword) =>
+            keyword.toLowerCase().includes(input.toLowerCase())
+        );
+    }
+    display(result); // Call display to render results
+});
+
+// Function to display results in the result box
+function display(result) {
+    if (result.length) {
+        // Generate list items for the result
+        const content = result.map((item) => `<li>${item}</li>`).join("");
+        resultsBox.innerHTML = `<ul>${content}</ul>`;
+    } else {
+        resultsBox.innerHTML = ""; // Clear results if no match
+    }
+}
+
+// Optional: Add a click listener for the search button (if needed)
+const searchButton = document.getElementById("search-button");
+searchButton.addEventListener("click", () => {
+    alert("This button currently does not perform any action!");
+});
+
+    </script>
+</body>
+</html>
